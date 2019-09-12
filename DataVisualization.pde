@@ -1,9 +1,22 @@
-JSONArray json_data;
+// JSONArray json_data;
 HashMap<Float, Integer> data = new HashMap<Float, Integer>();
+
 int max = 0;
 
 void setup() {
   size(800, 600);
+  // {4.0=43, 3.0=11, 3.5=21, 5.0=16, 2.5=7, 1.0=1, 2.0=3, 1.5=2, 4.5=57}
+  data.put(1.0, 1);
+  data.put(1.5, 2);
+  data.put(2.0, 3);
+  data.put(2.5, 7);
+  data.put(3.0, 11);
+  data.put(3.5, 21);
+  data.put(4.0, 43);
+  data.put(4.5, 57);
+  data.put(5.0, 16);
+  max = 57;
+  /*
   json_data = loadJSONObject("data.json").getJSONObject("data").getJSONArray("findManyTeacher");
   for (int i = 0; i < json_data.size(); i++) {
     Float rating = round(json_data.getJSONObject(i).getFloat("rating") / 0.5) * 0.5;
@@ -18,6 +31,7 @@ void setup() {
       }
     }
   }
+  */
   bar_chart(data, max);
   textAlign(CENTER);
   textSize(32);
@@ -38,7 +52,7 @@ void bar_chart(HashMap<Float, Integer> data, int max) {
     rect(x, height - height_ + 5, width_, height_);
     textAlign(CENTER);
     fill(0);
-    text(String.format("%.01f", i), x + width_ / 2, height - height_ / 2 + 7.5);
+    text(nf(i, 1, 1), x + width_ / 2, height - height_ / 2 + 7.5);
     text(data.get(i), x + width_ / 2, height - height_ - 7.5);
   }
 }
