@@ -32,7 +32,12 @@ void setup() {
     }
   }
   */
-  bar_chart(data, max);
+  bar_chart(data, max, 0);
+}
+
+void draw() {
+  background(200);
+  bar_chart(data, max, frameCount);
   textAlign(CENTER);
   textSize(32);
   text("Lowell High School Teacher Ratings", width / 2, height / 8);
@@ -40,19 +45,21 @@ void setup() {
   text("data from studentsreview.me", width / 2, height / 8 + 20);
 }
 
-void bar_chart(HashMap<Float, Integer> data, int max) {
+void bar_chart(HashMap<Float, Integer> data, int max, int step) {
   float margin = 20;
+  float time_to_full = 60.0;
   for (float i = 1.0; i <= 5.0; i += 0.5) {
     fill((5.0 - i) * 51, i * 51, 0);
     strokeWeight(5);
     float x = width / data.size() * (i - 1.0) * 2.0 + margin;
     float width_ = width / data.size() - margin * 2;
     float max_height = height * 3 / 4;
-    float height_ = max_height * (data.get(i) / (float) max) + 25;
+    float full_height = max_height * (data.get(i) / (float) max) + 25;
+    float height_ = Math.min(full_height, full_height * (step / time_to_full));
     rect(x, height - height_ + 5, width_, height_);
     textAlign(CENTER);
     fill(0);
-    text(nf(i, 1, 1), x + width_ / 2, height - height_ / 2 + 7.5);
-    text(data.get(i), x + width_ / 2, height - height_ - 7.5);
+    text(nf(i, 1, 1), x + width_ / 2, height - height_ / 2 + 10);
+    text(data.get(i), x + width_ / 2, height - height_ - 10);
   }
 }
